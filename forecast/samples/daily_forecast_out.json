@@ -1,0 +1,32 @@
+[
+    {
+        "date": "2026-02-26",
+        "temp_min": 300.01,
+        "temp_max": 300.57,
+        "feels_like": 303.13,
+        "precipitation": 0.00,
+        "snowfall": 0.00,
+        "cloud_cover": 74.75,
+        "wind_speed": 6.83
+    },
+    {
+        "date": "2026-02-27",
+        "temp_min": 299.57,
+        "temp_max": 300.56,
+        "feels_like": 302.09,
+        "precipitation": 3.13,
+        "snowfall": 0.00,
+        "cloud_cover": 92.50,
+        "wind_speed": 4.69
+    },
+    {
+        "date": "2026-02-28",
+        "temp_min": 299.62,
+        "temp_max": 300.64,
+        "feels_like": 302.68,
+        "precipitation": 14.13,
+        "snowfall": 0.00,
+        "cloud_cover": 92.12,
+        "wind_speed": 4.85
+    }
+]

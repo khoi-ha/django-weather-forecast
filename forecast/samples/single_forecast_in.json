@@ -1,0 +1,36 @@
+{
+            "dt": 1772107200,
+            "main": {
+                "temp": 300.57,
+                "feels_like": 303.61,
+                "temp_min": 300.3,
+                "temp_max": 300.57,
+                "pressure": 1012,
+                "sea_level": 1012,
+                "grnd_level": 1011,
+                "humidity": 78,
+                "temp_kf": 0.27
+            },
+            "weather": [
+                {
+                    "id": 803,
+                    "main": "Clouds",
+                    "description": "broken clouds",
+                    "icon": "04d"
+                }
+            ],
+            "clouds": {
+                "all": 84
+            },
+            "wind": {
+                "speed": 7.46,
+                "deg": 135,
+                "gust": 7.11
+            },
+            "visibility": 10000,
+            "pop": 0,
+            "sys": {
+                "pod": "d"
+            },
+            "dt_txt": "2026-02-26 12:00:00"
+}
