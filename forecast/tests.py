@@ -25,11 +25,11 @@ class OpenWeatherAPITests(TestCase):
             TEST_LOCATION[0], 
             TEST_LOCATION[1])
         self.assertNotEqual(response, {})
-        with open("forecast/testLogs/api_response.json", 'w') as f:
+        with open("forecast/test/logs/api_response.json", 'w') as f:
             f.write(json.dumps(response))
             f.close()
 
-SAMPLES_FOLDER = "forecast/samples"
+SAMPLES_FOLDER = "forecast/tests/samples"
 SINGLE_FORECAST_TEST = "single_forecast"
 MULTIPLE_FORECASTS_TEST = "multiple_forecasts"
 DAILY_FORECAST_TEST = "daily_forecast"
