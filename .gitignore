@@ -1,3 +1,6 @@
 __pycache__
 db.sqlite3
 logs
+.env
+city.list.json*
+city.list.min.json*
