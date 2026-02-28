@@ -3,7 +3,7 @@ from django.db import models
 class Country(models.Model):
     """Model representing a country. The purpose is to map the country code to the country name."""
     code = models.CharField(max_length=2, primary_key=True)
-    name = models.CharField(max_length=32, unique=True)
+    name = models.CharField(max_length=32, unique=True, default="")
 
     def get_country_code(self, country_name):
         """Get the country code for a given country name.
@@ -36,9 +36,9 @@ class Country(models.Model):
 class City(models.Model):
     """Model representing a city. The purpose is to store city names and their geographical coordinates."""
     country = models.ForeignKey(Country, on_delete=models.CASCADE)
-    name = models.CharField(max_length=80)
-    lat = models.FloatField()
-    lon = models.FloatField()
+    name = models.CharField(max_length=80, default="")
+    lat = models.FloatField(default=0.0)
+    lon = models.FloatField(default=0.0)
 
     def get_coordinates(self, city, country_code):
         """Get the geographical coordinates of a city by its name.
@@ -70,17 +70,21 @@ class City(models.Model):
 class Weather(models.Model):
     """Model representing a weather condition."""
     id = models.IntegerField(primary_key=True)
-    name = models.CharField(max_length=80, unique=True)
-    icon = models.CharField(max_length=200, unique=True)
+    name = models.CharField(max_length=80, unique=True, default="")
+    icon = models.CharField(max_length=200)
+
+    def __str__(self):
+        return str(self.name)
 
 class InfoType(models.Model):
     """Model representing an information type."""
     type = models.CharField(max_length=20, unique=True,primary_key=True)
-    icon = models.CharField(max_length=200, unique=True)
+    icon = models.CharField(max_length=200)
 
 class Background(models.Model):
     """Model representing a background image for a specific weather condition."""
     weather_type = models.ForeignKey(Weather, on_delete=models.CASCADE)
+    name = models.CharField(max_length=80, unique=True, default="")
     link = models.CharField(max_length=200, unique=True)
 
     def get_random_background(self, weather_type):
@@ -96,3 +100,7 @@ class Background(models.Model):
         if background:
             return background.link
         return ""
+    
+    def __str__(self):        
+        return f"{self.name}"
+
