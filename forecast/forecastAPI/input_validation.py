@@ -2,7 +2,7 @@ import re
 
 COUNTRY_RE = re.compile(r"^[A-Za-z\ ]{2,50}$")
 CITY_RE = re.compile(r"^[A-Za-z\s-]{1,100}$")
-MAX_DAYS = 5
+MAX_DAYS = 4
 
 
 def validate_country(country:str)->bool:

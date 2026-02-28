@@ -72,11 +72,19 @@ def calculate_daily_forecasts(weather_data, days=3):
     Returns:
         list: A list of dictionaries containing the daily forecast data.
     """
-    grouped = create_forecast_df(weather_data).groupby("date")
+    # Create a DataFrame from the weather data
+    forecast_df = create_forecast_df(weather_data)
+    grouped = forecast_df.groupby("date")
+
+    # Filter out the first date if it has less than 4 entries (indicating it's not a full day)
+    forecast_df = forecast_df[grouped.ngroup() > 0]
+    grouped = forecast_df.groupby("date")
+    
     daily_forecasts = []
     for date, group in grouped:
         if len(daily_forecasts) >= days:
             break
+        print(date, group["weather_type"])
         daily_forecast = {
             "date": date,
             "weather_type": group["weather_type"].mode()[0],
