@@ -1,0 +1,15 @@
+[
+  {"weather_type": "Clear", "icon": ""},
+  {"weather_type": "Clouds", "icon": ""},
+  {"weather_type": "Drizzle", "icon": ""},
+  {"weather_type": "Rain", "icon": ""},
+  {"weather_type": "Snow", "icon": ""},
+  {"weather_type": "Atmosphere", "icon": ""},
+  {"weather_type": "Thunderstorm", "icon": ""},
+  {"weather_type": "Dust", "icon": ""},
+  {"weather_type": "Fog", "icon": ""},
+  {"weather_type": "Sand", "icon": ""},
+  {"weather_type": "Ash", "icon": ""},
+  {"weather_type": "Squall", "icon": ""},
+  {"weather_type": "Tornado", "icon": ""}
+]

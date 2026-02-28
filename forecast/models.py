@@ -34,7 +34,7 @@ class Weather(models.Model):
 
 class InfoType(models.Model):
     """Model representing an information type."""
-    type = models.CharField(max_length=20, unique=True)
+    type = models.CharField(max_length=20, unique=True,primary_key=True)
     icon = models.CharField(max_length=200, unique=True)
 
 class Background(models.Model):

@@ -1,6 +1,8 @@
 [
     {
         "date": "2026-02-26",
+        "weather_type": "Clouds",
+        "description": "broken clouds",
         "temp_min": 300.01,
         "temp_max": 300.57,
         "feels_like": 303.13,
@@ -11,6 +13,8 @@
     },
     {
         "date": "2026-02-27",
+        "weather_type": "Clouds",
+        "description": "light rain",
         "temp_min": 299.57,
         "temp_max": 300.56,
         "feels_like": 302.09,
@@ -21,6 +25,8 @@
     },
     {
         "date": "2026-02-28",
+        "weather_type": "Clouds",
+        "description": "overcast clouds",
         "temp_min": 299.62,
         "temp_max": 300.64,
         "feels_like": 302.68,

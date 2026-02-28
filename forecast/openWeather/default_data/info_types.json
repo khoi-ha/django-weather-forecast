@@ -1,0 +1,7 @@
+[
+  {"type": "feels_like", "icon": "https://unpkg.com/feather-icons/dist/icons/thermometer.svg"},
+  {"type": "precipitation", "icon": "https://unpkg.com/feather-icons/dist/icons/cloud-rain.svg"},
+  {"type": "snowfall", "icon": "https://unpkg.com/feather-icons/dist/icons/cloud-snow.svg"},
+  {"type": "cloud_cover", "icon": "https://unpkg.com/feather-icons/dist/icons/cloud.svg"},
+  {"type": "wind_speed", "icon": "https://unpkg.com/feather-icons/dist/icons/wind.svg"}
+]

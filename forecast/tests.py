@@ -29,7 +29,7 @@ class OpenWeatherAPITests(TestCase):
             f.write(json.dumps(response))
             f.close()
 
-SAMPLES_FOLDER = "forecast/tests/samples"
+SAMPLES_FOLDER = "forecast/test/samples"
 SINGLE_FORECAST_TEST = "single_forecast"
 MULTIPLE_FORECASTS_TEST = "multiple_forecasts"
 DAILY_FORECAST_TEST = "daily_forecast"

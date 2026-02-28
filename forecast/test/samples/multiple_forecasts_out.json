@@ -1,6 +1,8 @@
 {
     "date":["2026-02-26","2026-02-27","2026-02-26"],
     "time":["12:00:00","00:00:00","21:00:00"],
+    "weather_type":["Clouds","Rain","Snow"],
+    "description":["broken clouds","light rain","light snow"],
     "temp_min":[300.3, 274.41, 273.72],
     "temp_max":[300.57, 274.55, 273.99],
     "feels_like":[303.61, 269.56, 269.12],

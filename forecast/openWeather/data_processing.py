@@ -24,6 +24,8 @@ def create_forecast_entry(json_entry:dict):
     try:
         row_data = [
             date, time, 
+            json_entry["weather"][0]["main"],
+            json_entry["weather"][0]["description"],
             json_entry["main"]["temp_min"], 
             json_entry["main"]["temp_max"],
             json_entry["main"]["feels_like"],
@@ -54,8 +56,10 @@ def create_forecast_df(weather_data):
         row = create_forecast_entry(entry)
         rows.append(row)
 
-    forecast_df = pd.DataFrame(rows, columns=["date", "time", "temp_min", "temp_max", "feels_like", 
-                                            "precipitation", "snowfall", "cloud_cover", "wind_speed"])
+    forecast_df = pd.DataFrame(rows, columns=["date", "time", "weather_type", "description", 
+                                              "temp_min", "temp_max", "feels_like", 
+                                              "precipitation", "snowfall", "cloud_cover", 
+                                              "wind_speed"])
     return forecast_df
 
 def calculate_daily_forecasts(weather_data, days=3):
@@ -75,6 +79,8 @@ def calculate_daily_forecasts(weather_data, days=3):
             break
         daily_forecast = {
             "date": date,
+            "weather_type": group["weather_type"].mode()[0],
+            "description": group["description"].mode()[0],
             "temp_min": round(float(group["temp_min"].min()),2),
             "temp_max": round(float(group["temp_max"].max()),2),
             "feels_like": round(float(group["feels_like"].mean()),2),
