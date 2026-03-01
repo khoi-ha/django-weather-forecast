@@ -53,19 +53,26 @@ body {
 
 .info-type {
     opacity:.85; 
-    font-size:1.0rem;
     color: #f4f3f2;
+    font-size:1.0rem;
+    font-family: "Open Sans", sans-serif;
 }
 
 .info {
+    color: #f4f3f2;
     font-weight:600;
     font-size:1.2rem;
-    color: #f4f3f2;
+    font-family: "Open Sans", sans-serif;
 }
 
 #page-name {
     color: #f4f3f2;
     font-family: "Monsterrat";
+}
+
+#location-suggestions{
+    max-height: 200px;
+    overflow-y: auto;
 }
 
 #location-name {

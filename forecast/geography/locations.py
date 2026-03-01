@@ -91,11 +91,15 @@ def import_city_list():
                 country = Country.objects.get(code=city["country"])
                 City.objects.get_or_create(
                     country=country,
+                    state=city["state"],
                     name=city["name"],
                     lat=city["coord"]["lat"],
                     lon=city["coord"]["lon"]
-                )
-                print(f"Imported city: {city['name']}, {city['country']}")
+                ) 
+                if city["state"]:
+                    print(f"Imported city: {city['name']}, {city['state']}, {country.name}")
+                else:
+                    print(f"Imported city: {city['name']}, {country.name}")
             except Exception as e:
                 print(f"Error importing city {city['name']}: {e}")
         f.close()

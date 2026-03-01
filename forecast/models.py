@@ -18,25 +18,12 @@ class Country(models.Model):
         if country:
             return country.code
         return None
-    
-    def get_country_name(self, country_code):
-        """Get the country name for a given country code.
-
-        Args:
-            country_code (str): The code of the country to search for.
-
-        Returns:
-            str: The country name if found, otherwise None.
-        """
-        country = Country.objects.filter(code__iexact=country_code).first()
-        if country:
-            return country.name
-        return None
 
 class City(models.Model):
     """Model representing a city. The purpose is to store city names and their geographical coordinates."""
-    country = models.ForeignKey(Country, on_delete=models.CASCADE)
     name = models.CharField(max_length=80, default="")
+    country = models.ForeignKey(Country, on_delete=models.CASCADE)
+    state = models.CharField(max_length=80, default="")
     lat = models.FloatField(default=0.0)
     lon = models.FloatField(default=0.0)
 
@@ -64,7 +51,6 @@ class City(models.Model):
         Returns:
             QuerySet: A queryset of matching cities.
         """
-        return City.objects.filter(name__icontains=keyword)
         return City.objects.filter(name__icontains=keyword)
 
 class Weather(models.Model):

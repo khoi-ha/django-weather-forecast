@@ -3,8 +3,10 @@ from django.http import JsonResponse
 from forecast.forecastAPI.forecast_api import generate_forecast_data
 from forecast.forecastAPI.input_validation import validate_country, \
                                 validate_city, validate_days
+from forecast.geography.location_api import generate_city_suggestions
 
 DEFAULT_COUNTRY = "United Kingdom"
+DEFAULT_STATE = ""
 DEFAULT_CITY = "London"
 DEFAULT_DAYS = "3"
 
@@ -15,7 +17,11 @@ def forecast(request):
     country = request.GET.get("country", DEFAULT_COUNTRY)
     if not validate_country(country):
         return JsonResponse({"error": "Invalid country format"}, status=400)
-    
+
+    state = request.GET.get("state", DEFAULT_STATE)
+    if not validate_country(state):
+        return JsonResponse({"error": "Invalid state format"}, status=400)
+
     city = request.GET.get("city", DEFAULT_CITY)
     if not validate_city(city):
         return JsonResponse({"error": "Invalid city format"}, status=400)
@@ -28,6 +34,18 @@ def forecast(request):
     if forecast_data is None:
         return JsonResponse({"error": "Could not generate forecast data"}, status=500)
     return JsonResponse(forecast_data)
+
+def get_city_suggestions(request):
+    if request.method != "GET":
+        return JsonResponse({"error": "Only GET requests are allowed"}, status=405)
+
+    keyword = request.GET.get("keyword", "")
+    if not keyword:
+        return JsonResponse({"error": "Query parameter is required"}, status=400)
+
+    suggestions = generate_city_suggestions(keyword)
+    return JsonResponse({"suggestions": suggestions})
+
 
 def index(request):
     return render(request, "html/index.html")
