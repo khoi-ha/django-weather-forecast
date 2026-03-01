@@ -13,13 +13,13 @@ def create_forecast_entry(json_entry:dict):
     row_data = []
 
     date, time = json_entry["dt_txt"].split(" ")
-    precipitation = 0
-    snowfall = 0
+    rain = 0
+    snow = 0
     
     if "rain" in json_entry.keys():
-        precipitation = json_entry["rain"]["3h"]
+        rain = json_entry["rain"]["3h"]
     if "snow" in json_entry.keys():
-        snowfall  = json_entry["snow"]["3h"]
+        snow  = json_entry["snow"]["3h"]
     
     try:
         row_data = [
@@ -29,8 +29,8 @@ def create_forecast_entry(json_entry:dict):
             json_entry["main"]["temp_min"], 
             json_entry["main"]["temp_max"],
             json_entry["main"]["feels_like"],
-            precipitation,
-            snowfall,
+            rain,
+            snow,
             json_entry["clouds"]["all"],
             json_entry["wind"]["speed"]
         ]
@@ -58,7 +58,7 @@ def create_forecast_df(weather_data):
 
     forecast_df = pd.DataFrame(rows, columns=["date", "time", "weather_type", "description", 
                                               "temp_min", "temp_max", "feels_like", 
-                                              "precipitation", "snowfall", "cloud_cover", 
+                                              "rain", "snow", "cloud_cover", 
                                               "wind_speed"])
     return forecast_df
 
@@ -92,8 +92,8 @@ def calculate_daily_forecasts(weather_data, days=3):
             "temp_min": round(float(group["temp_min"].min()),2),
             "temp_max": round(float(group["temp_max"].max()),2),
             "feels_like": round(float(group["feels_like"].mean()),2),
-            "precipitation": round(float(group["precipitation"].sum()),2),
-            "snowfall": round(float(group["snowfall"].sum()),2),
+            "rain": round(float(group["rain"].sum()),2),
+            "snow": round(float(group["snow"].sum()),2),
             "cloud_cover": round(float(group["cloud_cover"].mean()),2),
             "wind_speed": round(float(group["wind_speed"].mean()),2)
         }

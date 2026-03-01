@@ -72,8 +72,8 @@ def generate_forecast_data(days, city_name, country_name):
                 "temp_min": forecast["temp_min"],
                 "temp_max": forecast["temp_max"],
                 "feels_like": forecast["feels_like"],
-                "precipitation": forecast["precipitation"],
-                "snowfall": forecast["snowfall"],
+                "rain": forecast["rain"],
+                "snow": forecast["snow"],
                 "cloud_cover": forecast["cloud_cover"],
                 "wind_speed": forecast["wind_speed"]
             }

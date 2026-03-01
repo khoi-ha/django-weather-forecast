@@ -30,4 +30,4 @@ def forecast(request):
     return JsonResponse(forecast_data)
 
 def index(request):
-    return render(request, 'index.html')
+    return render(request, "html/index.html")
