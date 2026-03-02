@@ -84,7 +84,6 @@ def calculate_daily_forecasts(weather_data, days=3):
     for date, group in grouped:
         if len(daily_forecasts) >= days:
             break
-        print(date, group["weather_type"])
         daily_forecast = {
             "date": date,
             "weather_type": group["weather_type"].mode()[0],

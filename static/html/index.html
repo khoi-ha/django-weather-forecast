@@ -23,86 +23,141 @@
     <h1 id="page-name" class="text-center mt-5 mb-3"> WEATHER FORECAST </h1>
 
     <nav class="navbar justify-content-center">
-        <form class="d-flex w-50" role="search">
+        <form id="search-form" class="d-flex" role="search">
             <div class="dropdown w-100 me-2">
                 <input id="search-bar" class="form-control" type="search" 
-                       placeholder="Search for a location, minimum 3 characters" aria-label="Search">
+                    placeholder="Search for a location, minimum 3 characters" aria-label="Search">
                 <ul id="location-suggestions" class="dropdown-menu w-100">
                 </ul>
             </div>
             <button id="search-button" class="btn btn-outline-light" type="submit" aria-label="Search">
-                    <iconify-icon icon="mdi:magnify"></iconify-icon>
-                    <span class="visually-hidden"> Click to search for a location </span>
+                <iconify-icon icon="mdi:magnify"></iconify-icon>
+                <span class="visually-hidden"> Click to search for a location </span>
             </button>
         </form>
     </nav>
     
-    <p id="location-name" class="text-center mt-4 mb-4"> 3-day weather in Tokyo, Japan</p>
+    <p id="location-line" class="text-center mt-4 mb-4"> 3-day weather in <span id="location-name"> Tokyo, Japan </span></p>
 
     <div id="weather-display" class="carousel slide mx-auto my-4" data-ride="carousel">
-        <div class="carousel-inner rounded-3">
-            <div class="weather-card carousel-item overflow-auto active">
-                <img class="weather-background d-block w-100" 
+        <div id="weather-container" class="carousel-inner rounded-3">
+            <div class="weather-card carousel-item active">
+                <img class="weather-background d-block" 
                      src="https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png" alt="First slide">
                 
-            <div class="overlay d-flex justify-content-center">
-                <div class="container ps-2">
-                    <div class="date row mx-5 px-4"> Sat, Mar 01 </div>
-                </div>
-                <div class="main-weather container ps-2">
-                    <div class="row mx-5 px-4">
-                        <iconify-icon icon="wi:day-sunny" class="weather-icon col-auto px-0" width="100" noobserver></iconify-icon>
-                        <div class="col"> 
-                            <div class="weather-type row"> Clouds </div>
-                            <div class="description row"> Partly cloudy </div>
+                <div class="overlay d-flex justify-content-center overflow-auto">
+                    <div class="main-weather container">
+                        <div class="date row mx-5 px-4"> Sat, Mar 01 </div>
+                        <div class="row mx-4 px-4">
+                            <iconify-icon icon="wi:day-sunny" class="weather-icon col-auto ps-0 pe-1" width="5cqw" ></iconify-icon>
+                            <div class="col"> 
+                                <div class="weather-type row"> Clouds </div>
+                                <div class="description row"> Partly cloudy </div>
+                            </div>
                         </div>
+                        <div class="temp row mx-5 px-4"> -1°C / 3°C </div>
                     </div>
-                </div>
 
-                <div class="auxillary-info container mx-6 mb-5 mt-4">
-                    <div class="row">
-                        <div class="col-6 d-flex align-items-center justify-content-center">
-                            <span><iconify-icon icon="wi:thermometer" height="70"></iconify-icon></span>
-                            <div>    
-                                <div class="info-type text-center">Feels Like</div>
-                                <div class="info text-center">-5° C</div>
+                    <div class="auxillary-info container mx-6 mb-5 mt-5">
+                        <div class="row">
+                            <div class="col-6 d-flex align-items-center justify-content-center">
+                                <span><iconify-icon icon="wi:thermometer" height="3cqw"></iconify-icon></span>
+                                <div>    
+                                    <div class="info-type text-center">Feels Like</div>
+                                    <div class="info text-center">-5°C</div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-6 d-flex align-items-center justify-content-center">
-                            <span><iconify-icon icon="wi:snowflake-cold" height="70"></iconify-icon></span>
-                            <div>    
-                                <div class="info-type text-center">Snowfall</div>
-                                <div class="info text-center">2 mm/d</div>
+                            <div class="col-6 d-flex align-items-center justify-content-center">
+                                <span><iconify-icon icon="wi:snowflake-cold" height="3cqw"></iconify-icon></span>
+                                <div>    
+                                    <div class="info-type text-center">Snowfall</div>
+                                    <div class="info text-center">2 mm/d</div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-6 d-flex align-items-center justify-content-center">
-                            <span><iconify-icon icon="wi:cloud" height="70"></iconify-icon></span>
-                            <div>    
-                                <div class="info-type text-center">Cloud cover</div>
-                                <div class="info text-center"> 80%</div>
+                            <div class="col-6 d-flex align-items-center justify-content-center">
+                                <span><iconify-icon icon="wi:cloud" height="3cqw"></iconify-icon></span>
+                                <div>    
+                                    <div class="info-type text-center">Cloud cover</div>
+                                    <div class="info text-center"> 80%</div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-6 d-flex align-items-center justify-content-center">
-                            <span><iconify-icon icon="wi:strong-wind" height="70"></iconify-icon></span>
-                            <div>    
-                                <div class="info-type text-center"> Wind speed </div>
-                                <div class="info text-center">10 km/h</div>
+                            <div class="col-6 d-flex align-items-center justify-content-center">
+                                <span><iconify-icon icon="wi:strong-wind" height="3cqw"></iconify-icon></span>
+                                <div>    
+                                    <div class="info-type text-center"> Wind speed </div>
+                                    <div class="info text-center">10 km/h</div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <a class="carousel-control-prev" href="#weather-display" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        </a>
-        
-        <a class="carousel-control-next" href="#weather-display" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        </a>
     
+        <button class="carousel-control-prev" type="button" data-bs-target="#weather-display" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        
+        <button class="carousel-control-next" type="button" data-bs-target="#weather-display" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
     </div>
+
+    <template id="weather-card-template">
+        <div class="weather-card carousel-item overflow-auto">
+            <img class="weather-background d-block" 
+                    src="[background]" alt="First slide">
+            
+            <div class="overlay d-flex justify-content-center">
+                <div class="main-weather container w-75">
+                    <div class="date row mx-5 px-4"> [date] </div>
+                    <div class="row mx-4 px-4">
+                        <iconify-icon icon="wi:day-sunny" class="weather-icon col-auto ps-0 pe-1" width="5cqw" ></iconify-icon>
+                        <div class="col"> 
+                            <div class="weather-type row"> [weather-type] </div>
+                            <div class="description row"> [description] </div>
+                        </div>
+                    </div>
+                    <div class="temp row mx-5 px-4"> [min-temp]°C / [max-temp]°C </div>
+                </div>
+
+                <div class="auxillary-info container mx-6 mb-5 mt-4">
+                    <div class="row">
+                        <div class="col-6 d-flex align-items-center justify-content-center">
+                            <span><iconify-icon icon="wi:thermometer" height="3cqw"></iconify-icon></span>
+                            <div>    
+                                <div class="info-type text-center">Feels Like</div>
+                                <div class="info text-center">[feels-like]°C</div>
+                            </div>
+                        </div>
+                        <div class="col-6 d-flex align-items-center justify-content-center">
+                            <span><iconify-icon icon="wi:snowflake-cold" height="3cqw"></iconify-icon></span>
+                            <div>    
+                                <div class="info-type text-center">Snowfall</div>
+                                <div class="info text-center">[snowfall] mm/d</div>
+                            </div>
+                        </div>
+                        <div class="col-6 d-flex align-items-center justify-content-center">
+                            <span><iconify-icon icon="wi:cloud" height="3cqw"></iconify-icon></span>
+                            <div>    
+                                <div class="info-type text-center">Cloud cover</div>
+                                <div class="info text-center"> [cloud-cover]%</div>
+                            </div>
+                        </div>
+                        <div class="col-6 d-flex align-items-center justify-content-center">
+                            <span><iconify-icon icon="wi:strong-wind" height="3cqw"></iconify-icon></span>
+                            <div>    
+                                <div class="info-type text-center"> Wind speed </div>
+                                <div class="info text-center">[wind-speed] km/h</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
 
     <!-- Including Bootstrap JS (with its jQuery dependency) so that dynamic components work -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" 

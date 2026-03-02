@@ -6,7 +6,7 @@ body {
     background-image: linear-gradient(
       180deg,
       black 0%,
-      rgb(31,31,31) 100%
+      rgb(35,35,35) 80%
     );
 
     /* Keeps gradient fixed while scrolling */
@@ -19,14 +19,15 @@ body {
 }
 
 .weather-background {
-    position: relative;
-    height:auto;
+    width: 50vw;    
+    height: 30vw;
 }
+
 
 .overlay {
     position:absolute; 
     inset:0;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0, 0, 0, 0.6);
     color:#fff; 
     display:flex; 
     flex-direction:column;
@@ -34,21 +35,26 @@ body {
 }
 
 .date {
-    font-size: 3.5rem;
-    /* font-family: 'Monsterrat'; */
+    font-size: 3cqw;
 }
 
 .weather-type {
-    font-size:2.5rem;
+    font-size: 2cqw;
 }
 
 .description {
     opacity:.85;
-    font-size:1rem
+    font-size:1cqw;
+    font-weight: lighter;
 }
 
-.auxillary-info {
-    width:70% !important;
+.temp {
+    font-size: 2cqw;
+    font-weight: lighter;
+}
+
+.main-weather {
+    width: 90% !important;
 }
 
 .info-type {
@@ -56,6 +62,7 @@ body {
     color: #f4f3f2;
     font-size:1.0rem;
     font-family: "Open Sans", sans-serif;
+    font-weight: lighter;
 }
 
 .info {
@@ -70,19 +77,21 @@ body {
     font-family: "Monsterrat";
 }
 
+#search-form {
+    width: 60%;
+}
+
 #location-suggestions{
     max-height: 200px;
     overflow-y: auto;
 }
 
-#location-name {
+#location-line, #location-name {
     color: #f4f3f2;
     font-size: 2rem;
     font-family: "Monsterrat";
 }
 
 #weather-display {
-    width:40%;
-    max-height:30%;
-    z-index: 1;
+    width:50vw;
 }

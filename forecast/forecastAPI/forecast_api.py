@@ -45,7 +45,6 @@ def generate_forecast_data(days, city_name, country_name):
         str: A JSON string containing the forecast data.
     """
     country_code = Country().get_country_code(country_name)
-    
     if country_code is None:
         print(f"Could not find country code for the country: {country_name}.")
         return
@@ -61,8 +60,6 @@ def generate_forecast_data(days, city_name, country_name):
     api_response_entries = []
     for forecast in daily_forecasts:
         entry = {
-            "city": city_name,
-            "country": country_code,
             "date": forecast["date"],
             "weather": {
                 "type": forecast["weather_type"],
@@ -83,6 +80,8 @@ def generate_forecast_data(days, city_name, country_name):
 
     api_response = {
     "dt": datetime.datetime.now().isoformat(),
+    "city": city_name,
+    "country": country_name,
     "weather_data": api_response_entries
     }
 

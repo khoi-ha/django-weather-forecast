@@ -19,7 +19,7 @@ def forecast(request):
         return JsonResponse({"error": "Invalid country format"}, status=400)
 
     state = request.GET.get("state", DEFAULT_STATE)
-    if not validate_country(state):
+    if state and not validate_country(state):
         return JsonResponse({"error": "Invalid state format"}, status=400)
 
     city = request.GET.get("city", DEFAULT_CITY)

@@ -1,7 +1,7 @@
 import re
 
-COUNTRY_RE = re.compile(r"^[A-Za-z\ ]{2,50}$")
-CITY_RE = re.compile(r"^[A-Za-z\s-]{1,100}$")
+COUNTRY_RE = re.compile(r"^[\w\W ]{2,50}$")
+CITY_RE = re.compile(r"^[\w\W ]{1,100}$", flags=re.U)
 MAX_DAYS = 4
 
 
