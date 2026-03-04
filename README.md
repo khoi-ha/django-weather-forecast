@@ -34,8 +34,9 @@ This is a Django project for a weather forecasting application. It provides user
 6. Download and setup PostgreSQL:
     - Follow the instructions for your operating system to install PostgreSQL.
     - Create a new database and user for the project and host it at `localhost`.
-
-7 . Set up the OpenWeatherMap API key:
+    - Update the `DATABASES` setting in `settings.py` with your PostgreSQL credentials.
+    
+7. Set up the OpenWeatherMap API key:
     - Create a `.env` file in the DjangoWeatherForecast folder and add the following lines, replacing the placeholders with your actual API key and PostgreSQL password:
       ```
       DJANGO_SECRET_KEY=your_secret_key_here
