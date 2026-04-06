@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -80,7 +80,7 @@ WSGI_APPLICATION = "DjangoWeatherForecast.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "forecast-app",
+        "NAME": "forecast_app",
         "USER": "postgres",
         "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
         "HOST": "127.0.0.1",
@@ -122,8 +122,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-STATIC_URL = "static/"
-
+STATIC_URL = "/static/"
+STATIC_ROOT = "/var/www/forecast/src/static/"
 STATICFILES_DIRS = [
     BASE_DIR / "static",  # project-level static folder
 ]
