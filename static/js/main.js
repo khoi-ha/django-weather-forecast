@@ -47,8 +47,35 @@ function fillWeatherCard(response) {
     }
 }
 
+function showSuggestions(suggestions) {
+    let search_bar = $("#search-bar");
+    let menu = $("#location-suggestions");
+    menu.empty();
+
+    if (!`${search_bar.val()}`) return;
+
+    // If there are suggestions, populate the dropdown menu
+    if (suggestions.count > 0) {
+        suggestions.suggestions.forEach(function(item) {
+            menu.append(
+                "<li><a class='suggestion dropdown-item' href='#'>" + item + "</a></li>"
+            );
+        });
+
+        // On click, populate search bar with the suggestion and hide the dropdown menu
+        $(".suggestion").on("click", function(e) {
+            e.preventDefault();
+            $("#search-bar").val($(this).text());
+            menu.removeClass("show").empty();
+        });
+        menu.addClass('show');
+    } else {
+        menu.removeClass('show');
+    }
+}
 
 $(document).ready(function () {
+
     let current_location_request = null;
 
     // Abort any ongoing location suggestion request when the user starts typing
@@ -57,39 +84,22 @@ $(document).ready(function () {
         $("#location-suggestions").removeClass("show").empty();
     }
 
-    
-    $("#search-bar").on("input", function (e) {
+    const CHARACTER_LIMIT = 1;
+    // The debounce delay, in milliseconds
+    const DEBOUNCE_DELAY = 500; 
+    $("#search-bar").on("input", $.debounce(DEBOUNCE_DELAY, function (e) {
         let keyword = `${$(this).val()}`;
         let menu=$("#location-suggestions");
         
-        // Only send a request if the keyword is at least 3 characters long
-        // This is because the application is hosted on a free tier and we want to minimize unnecessary database queries
-        if (keyword.length >= 3) {
+        // Only send a request if the keyword is at least 1 characters long
+        // This is because the application is hosted on a limited tier 
+        // and we want to minimize unnecessary database queries
+        if (keyword.length >= CHARACTER_LIMIT) {
             current_location_request = $.ajax({
                 url: "geography/api/city_suggestions",
                 data: { "keyword": keyword },
                 success: function(response) {
-                    menu = $("#location-suggestions");
-                    menu.empty();
-
-                    // If there are suggestions, populate the dropdown menu
-                    if (response.suggestions.count > 0) {
-                        response.suggestions.suggestions.forEach(function(item) {
-                            menu.append(
-                                "<li><a class='suggestion dropdown-item' href='#'>" + item + "</a></li>"
-                            );
-                        });
-
-                        // On click, populate search bar with the suggestion and hide the dropdown menu
-                        $(".suggestion").on("click", function(e) {
-                            e.preventDefault();
-                            $("#search-bar").val($(this).text());
-                            menu.removeClass("show").empty();
-                        });
-                        menu.addClass('show');
-                    } else {
-                        menu.removeClass('show');
-                    }
+                    showSuggestions(response.suggestions);
                 },
                 error: function(xhr, status, error) {
                     menu = $("#location-suggestions");
@@ -103,8 +113,15 @@ $(document).ready(function () {
         } else {
                 $("#location-suggestions").removeClass("show").empty();
         }
-    });
+    }));
     
+    $("#search-bar").on("focusout", function() {
+        // Delay hiding the dropdown to allow click events to register
+        setTimeout(function() {
+            $("#location-suggestions").removeClass("show").empty();
+        }, 200);
+    });
+
     $("#search-button").click(function(e) {
         e.preventDefault();
         let location = $("#search-bar").val();
@@ -131,7 +148,6 @@ $(document).ready(function () {
             url: "forecast/api",
             data: {city:city, state:state, country:country, days:"3"},
             success: function (response) {
-                console.log(response)
                 $("#weather-container").empty()
                 $("#location-name").text(`${response.city}, ${response.country}`);
                 fillWeatherCard(response);

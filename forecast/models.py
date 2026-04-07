@@ -42,7 +42,7 @@ class City(models.Model):
             return (city.lat, city.lon)
         return None
     
-    def find_matching_cities(self, keyword):
+    def find_matching_cities(self, keyword, suggestion_limit=20):
         """Find cities that match a given keyword.
 
         Args:
@@ -51,7 +51,10 @@ class City(models.Model):
         Returns:
             QuerySet: A queryset of matching cities.
         """
-        return City.objects.filter(name__icontains=keyword)
+        return City.objects \
+                   .filter(name__istartswith=keyword) \
+                   .values_list('name', 'country__name', 'state')[:suggestion_limit]
+
 
 class Weather(models.Model):
     """Model representing a weather condition."""

@@ -13,7 +13,7 @@ django.setup()
 
 from forecast.models import Country, City
 
-def generate_city_suggestions(keyword):
+def generate_city_suggestions(keyword, max_suggestions=20):
     """Generate city suggestions based on a keyword.
 
     Args:
@@ -26,17 +26,14 @@ def generate_city_suggestions(keyword):
         return []
     
     # Search for cities that contain the keyword (case-insensitive)
-    matching_cities = City().find_matching_cities(keyword)
+    matching_cities = City().find_matching_cities(keyword, max_suggestions)
     
     # Create a list of suggestions in the format "City, Country"
     suggestions = []
-    for city in matching_cities:
-        country_name = city.country.name
-        if not country_name:
-            country_name = "Unknown Country"
-        if city.state:
-            suggestions.append(f"{city.name}, {city.state}, {country_name}")
+    for city, country, state in matching_cities:
+        if state:
+            suggestions.append(f"{city}, {state}, {country}")
         else:
-            suggestions.append(f"{city.name}, {country_name}")
+            suggestions.append(f"{city}, {country}")
 
     return {"count": len(suggestions), "suggestions": suggestions}
