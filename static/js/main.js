@@ -1,11 +1,11 @@
 function formatIsoDate(isoString) {
-  const date = Temporal.PlainDate.from(isoString);
-
-  return date.toLocaleString('en-US', {
+  const date = new Date(isoString);
+  const internationalDateFormat = new Intl.DateTimeFormat('en-US', {
     weekday: 'short',
     month: 'short',
     day: '2-digit'
   });
+  return internationalDateFormat.format(date);
 }
 
 const KELVIN_CELCIUS_DIFFERENCE = 273;
