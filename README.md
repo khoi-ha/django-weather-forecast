@@ -63,7 +63,7 @@ This is a Django project for a weather forecasting application. It provides user
 
 11. Import locations, and weather types into database:
     ```
-    python forecast/geography/locations.py
+    python forecast/geography/locations_import.py
     python forecast/openWeather/default_imports.py
     ```
 

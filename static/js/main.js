@@ -26,6 +26,7 @@ function msToKmh(ms) {
     return Math.round(ms*MS_KMH_CONVERSION);
 } 
 
+
 function fillWeatherCard(response) {
     var temp = $.trim($('#weather-card-template').html());
     for (let i=0; i < response.weather_data.length; i++) {
@@ -45,6 +46,18 @@ function fillWeatherCard(response) {
             $(".weather-card").addClass("active");
         }
     }
+}
+
+function fetchWeatherData(city, state, country) {
+    $.ajax({
+            url: "forecast/api",
+            data: {city:city, state:state, country:country, days:"3"},
+            success: function (response) {
+                $("#weather-container").empty()
+                $("#location-name").text(`${response.city}, ${response.country}`);
+                fillWeatherCard(response);
+            }
+    })
 }
 
 function showSuggestions(suggestions) {
@@ -74,20 +87,27 @@ function showSuggestions(suggestions) {
     }
 }
 
+// Fetch weather data on page load with empty location parameters 
+// to show default location weather
+const LOAD_DEBOUNCE = 50;
+$(window).on("load", $.debounce(LOAD_DEBOUNCE, function() {
+    fetchWeatherData("", "", "");
+}));
+
+const CHARACTER_LIMIT = 1;
 $(document).ready(function () {
 
     let current_location_request = null;
-
+    
     // Abort any ongoing location suggestion request when the user starts typing
     if (current_location_request !== null) {
         current_location_request.abort();
         $("#location-suggestions").removeClass("show").empty();
     }
 
-    const CHARACTER_LIMIT = 1;
     // The debounce delay, in milliseconds
-    const DEBOUNCE_DELAY = 500; 
-    $("#search-bar").on("input", $.debounce(DEBOUNCE_DELAY, function (e) {
+    const SUGGESTION_DEBOUNCE = 500; 
+    $("#search-bar").on("input", $.debounce(SUGGESTION_DEBOUNCE, function (e) {
         let keyword = `${$(this).val()}`;
         let menu=$("#location-suggestions");
         
@@ -144,14 +164,6 @@ $(document).ready(function () {
             return;
         }
 
-        $.ajax({
-            url: "forecast/api",
-            data: {city:city, state:state, country:country, days:"3"},
-            success: function (response) {
-                $("#weather-container").empty()
-                $("#location-name").text(`${response.city}, ${response.country}`);
-                fillWeatherCard(response);
-            }
-        })
+        fetchWeatherData(city, state, country);
     });
 });

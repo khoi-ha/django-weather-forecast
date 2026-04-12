@@ -3,7 +3,7 @@ from os import getenv
 import sys
 sys.path.append("..")
 
-from openWeather.request_format import send_get_request
+from forecast.openWeather.request_utils import send_get_request
 
 OPENWEATHER_API_ENDPOINT = "https://api.openweathermap.org/data/2.5/forecast"
 

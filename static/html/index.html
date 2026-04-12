@@ -27,72 +27,23 @@
         <form id="search-form" class="d-flex" role="search">
             <div class="dropdown w-100 me-2">
                 <input id="search-bar" class="form-control" type="search" 
-                    placeholder="Search for a location. Type to view suggestions." aria-label="Search">
+                    placeholder="Select a location. Type to view suggestions." aria-label="Search" 
+                    title="Format is [City], [State], [Country]. You can omit the state."
+                    data-bs-toggle="dropdown" aria-expanded="false" autocomplete="off">
                 <ul id="location-suggestions" class="dropdown-menu w-100">
                 </ul>
             </div>
             <button id="search-button" class="btn btn-outline-light" type="submit" aria-label="Search">
-                <iconify-icon icon="mdi:magnify"></iconify-icon>
+                <iconify-icon icon="mdi:map-marker-outline"></iconify-icon>
                 <span class="visually-hidden"> Click to search for a location </span>
             </button>
         </form>
     </nav>
     
-    <p id="location-line" class="text-center mt-4 mb-4"> 3-day weather in <span id="location-name"> Tokyo, Japan </span></p>
+    <p id="location-line" class="text-center mt-4 mb-4"> 3-day weather in <span id="location-name"> </span></p>
 
     <div id="weather-display" class="carousel slide mx-auto my-4" data-ride="carousel">
         <div id="weather-container" class="carousel-inner rounded-3">
-            <div class="weather-card carousel-item active">
-                <img class="weather-background d-block" 
-                     src="https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png" alt="First slide">
-                
-                <div class="overlay d-flex justify-content-center overflow-auto">
-                    <div class="main-weather container">
-                        <div class="date row mx-5 px-4"> Sat, Mar 01 </div>
-                        <div class="row mx-4 px-4">
-                            <iconify-icon icon="wi:day-sunny" class="weather-icon col-auto ps-0 pe-1" width="5cqw" ></iconify-icon>
-                            <div class="col"> 
-                                <div class="weather-type row"> Clouds </div>
-                                <div class="description row"> Partly cloudy </div>
-                            </div>
-                        </div>
-                        <div class="temp row mx-5 px-4"> -1°C / 3°C </div>
-                    </div>
-
-                    <div class="auxillary-info container mx-6 mb-5 mt-5">
-                        <div class="row">
-                            <div class="col-6 d-flex align-items-center justify-content-center">
-                                <span><iconify-icon icon="wi:thermometer" height="3cqw"></iconify-icon></span>
-                                <div>    
-                                    <div class="info-type text-center">Feels Like</div>
-                                    <div class="info text-center">-5°C</div>
-                                </div>
-                            </div>
-                            <div class="col-6 d-flex align-items-center justify-content-center">
-                                <span><iconify-icon icon="wi:snowflake-cold" height="3cqw"></iconify-icon></span>
-                                <div>    
-                                    <div class="info-type text-center">Snowfall</div>
-                                    <div class="info text-center">2 mm/d</div>
-                                </div>
-                            </div>
-                            <div class="col-6 d-flex align-items-center justify-content-center">
-                                <span><iconify-icon icon="wi:cloud" height="3cqw"></iconify-icon></span>
-                                <div>    
-                                    <div class="info-type text-center">Cloud cover</div>
-                                    <div class="info text-center"> 80%</div>
-                                </div>
-                            </div>
-                            <div class="col-6 d-flex align-items-center justify-content-center">
-                                <span><iconify-icon icon="wi:strong-wind" height="3cqw"></iconify-icon></span>
-                                <div>    
-                                    <div class="info-type text-center"> Wind speed </div>
-                                    <div class="info text-center">10 km/h</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     
         <button class="carousel-control-prev" type="button" data-bs-target="#weather-display" data-bs-slide="prev">

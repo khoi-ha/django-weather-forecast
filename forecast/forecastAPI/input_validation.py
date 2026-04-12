@@ -14,7 +14,7 @@ def validate_country(country:str)->bool:
     Returns:
         bool: True if the country is valid, False otherwise.
     """
-    return COUNTRY_RE.match(country) is not None
+    return not country or COUNTRY_RE.match(country) is not None
 
 
 def validate_city(city:str)->bool:
@@ -26,7 +26,7 @@ def validate_city(city:str)->bool:
     Returns:
         bool: True if the city is valid, False otherwise.
     """
-    return CITY_RE.match(city) is not None
+    return not city or CITY_RE.match(city) is not None
 
 
 def validate_days(days:str)->bool:

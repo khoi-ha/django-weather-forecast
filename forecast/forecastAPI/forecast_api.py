@@ -11,7 +11,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "DjangoWeatherForecast.settings")
 django.setup()
 
-from forecast.openWeather.api import get_weather_data
+from forecast.openWeather.api_client import get_weather_data
 from forecast.openWeather.data_processing import calculate_daily_forecasts
 from forecast.models import Country, City, Weather, InfoType, Background
 
