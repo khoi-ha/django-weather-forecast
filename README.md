@@ -1,5 +1,5 @@
 ## Usage
-The site is hosted at http://wegow.site.
+The site is hosted at https://wegow.site.
 
 ## Purpose
 This is a Django project for a weather forecasting application. It provides users a 3-day weather forecast for their location.
