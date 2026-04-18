@@ -1,3 +1,5 @@
+Iconify.enableCache('local');
+
 function formatIsoDate(isoString) {
   const date = new Date(isoString);
   const internationalDateFormat = new Intl.DateTimeFormat('en-US', {

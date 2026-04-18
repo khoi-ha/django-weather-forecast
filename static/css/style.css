@@ -13,17 +13,26 @@ body {
     background-attachment: fixed; 
 }
 
+/* Carousel previous and next click zone */
 .carousel-control-prev,
 .carousel-control-next {
   width: 6% !important;
 }
 
-.weather-background {
+/* Each weather card shows info for one day */
+.weather-card {
     width: 50vw;    
     height: 30vw;
 }
 
+/* Background image that goes with each weather card */
+.weather-background {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 
+/* Overlay that contains weather information */
 .overlay {
     position:absolute; 
     inset:0;
@@ -32,6 +41,12 @@ body {
     display:flex; 
     flex-direction:column;
     padding:12px 16px;
+}
+
+/* Main weather classes */
+
+.main-weather {
+    width: 90% !important;
 }
 
 .date {
@@ -53,23 +68,105 @@ body {
     font-weight: lighter;
 }
 
-.main-weather {
-    width: 90% !important;
+/* Auxillary info classes */
+
+.weather-icon {
+    font-size: 5cqw;
 }
 
 .info-type {
     opacity:.85; 
     color: #f4f3f2;
-    font-size:1.0rem;
-    font-family: "Open Sans", sans-serif;
+    font-size:1cqw;
+    font-family: "Open Sans", system-ui, sans-serif;
     font-weight: lighter;
 }
 
 .info {
     color: #f4f3f2;
     font-weight:600;
-    font-size:1.2rem;
-    font-family: "Open Sans", sans-serif;
+    font-size:1.2cqw;
+    font-family: "Open Sans", system-ui, sans-serif;
+}
+
+.info-icon {
+    font-size: 3cqw;
+}
+
+@media (max-width: 768px) {
+    
+    .carousel-inner {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .carousel-item {
+        position: relative !important;
+        transform: none !important;
+        display: block;
+        width: 100%;
+        opacity: 1 !important;
+    }
+
+    .carousel-control-prev,
+    .carousel-control-next {
+        display: none;
+    }
+
+    .weather-card {
+        width: 100%;
+        height: 60lvh;
+    }
+
+    .main-weather {
+        position: relative;
+        width: 100% !important;
+        height: 50%;
+    }
+
+    .date {
+        font-size: 5cqh;
+    }
+
+    .weather-icon {
+        font-size: 6cqh;
+    }
+
+    .weather-type {
+        font-size: 4cqh;
+    }
+
+    .description {
+        font-size: 3.5cqh;
+    }
+
+    .temp {
+        font-size: 5cqh;
+    }
+
+    .weather-background {
+        height: 100%;
+    }
+
+    .description {
+        font-size: 3cqh;
+    }
+
+    .temp {
+        font-size: 4cqh;
+    }
+
+    .info-type {
+        font-size: 4.2cqw;
+    }
+
+    .info {
+        font-size: 4cqw;
+    }
+
+    .info-icon {
+        font-size: 5cqh;
+    }
 }
 
 #page-name {
@@ -94,4 +191,21 @@ body {
 
 #weather-display {
     width:50vw;
+}
+
+
+@media (max-width: 768px) {
+    #search-form {
+        width: 90%;
+    }
+    #location-prefix {
+        display: none;
+    }
+    #location-name {
+        font-size: 1.7rem;
+    }
+    #weather-display {
+        width: 100%;
+        height: auto;
+    }
 }
