@@ -40,7 +40,19 @@ function fillWeatherCard(response) {
         x = x.replace(/\[min-temp\]/ig, kelvinToCelsius(obj.weather.temp_min))
         x = x.replace(/\[max-temp\]/ig, kelvinToCelsius(obj.weather.temp_max))
         x = x.replace(/\[feels-like\]/ig, kelvinToCelsius(obj.weather.feels_like));
-        x = x.replace(/\[snowfall\]/ig, obj.weather.snow);
+        console.log(obj.weather);
+        if (obj.weather.snow == 0) {
+            x = x.replace(/\[prec-icon\]/ig, "wi:raindrops");
+            x = x.replace(/\[precip-type\]/ig, "Rainfall");
+            x = x.replace(/\[precipitation\]/ig, obj.weather.rain);
+            x = x.replace(/\[unit\]/ig, "mm");
+        }
+        else {
+            x = x.replace(/\[prec-icon\]/ig, "wi:snowflake-cold");
+            x = x.replace(/\[precip-type\]/ig, "Snowfall");
+            x = x.replace(/\[precipitation\]/ig, obj.weather.snow);
+            x = x.replace(/\[unit\]/ig, "mm/d");
+        }
         x = x.replace(/\[cloud-cover\]/ig, Math.round(obj.weather.cloud_cover));
         x = x.replace(/\[wind-speed\]/ig, msToKmh(obj.weather.wind_speed));
         $("#weather-container").append(x);
