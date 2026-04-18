@@ -40,7 +40,6 @@ function fillWeatherCard(response) {
         x = x.replace(/\[min-temp\]/ig, kelvinToCelsius(obj.weather.temp_min))
         x = x.replace(/\[max-temp\]/ig, kelvinToCelsius(obj.weather.temp_max))
         x = x.replace(/\[feels-like\]/ig, kelvinToCelsius(obj.weather.feels_like));
-        console.log(obj.weather);
         if (obj.weather.snow == 0) {
             x = x.replace(/\[prec-icon\]/ig, "wi:raindrops");
             x = x.replace(/\[precip-type\]/ig, "Rainfall");
