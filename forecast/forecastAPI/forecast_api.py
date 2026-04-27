@@ -18,7 +18,8 @@ from forecast.openWeather.api_client import get_weather_data
 from forecast.openWeather.data_processing import calculate_daily_forecasts
 from forecast.models import Country, City, Weather, InfoType, Background
 
-DEFAULT_COUNTRY = "GB"
+DEFAULT_COUNTRY = "United Kingdom"
+DEFAULT_COUNTRY_CODE = "GB"
 DEFAULT_CITY = "London"
 
 def get_weather_icon(weather_type) -> str:
@@ -76,12 +77,14 @@ def generate_forecast_data(days, city_name, country_name) -> dict:
     country_code = Country().get_country_code(country_name)
     if country_code is None:
         print(f"Could not find country code for the country: {country_name}.")
-        country_code = DEFAULT_COUNTRY
+        country_name = DEFAULT_COUNTRY
+        country_code = DEFAULT_COUNTRY_CODE
 
     city_coordinates = City().get_coordinates(city_name, country_code)
     if city_coordinates is None:
-        print(f"Could not find coordinates for the city: {city_name}.")
-        city_coordinates = City().get_coordinates(DEFAULT_CITY, DEFAULT_COUNTRY)
+        print(f"Could not find coordinates for the city: {city_name}, {country_name}.")
+        city_name = DEFAULT_CITY
+        city_coordinates = City().get_coordinates(DEFAULT_CITY, DEFAULT_COUNTRY_CODE)
 
     weather_data = get_weather_data(city_coordinates[0], city_coordinates[1])
     daily_forecasts = calculate_daily_forecasts(weather_data, days)
