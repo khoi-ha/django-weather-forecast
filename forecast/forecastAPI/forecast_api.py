@@ -78,13 +78,14 @@ def generate_forecast_data(days, city_name, country_name) -> dict:
     if country_code is None:
         print(f"Could not find country code for the country: {country_name}.")
         country_name = DEFAULT_COUNTRY
-        country_code = DEFAULT_COUNTRY_CODE
 
     city_coordinates = City().get_coordinates(city_name, country_code)
     if city_coordinates is None:
         print(f"Could not find coordinates for the city: {city_name}, {country_name}.")
+        country_name = DEFAULT_COUNTRY
         city_name = DEFAULT_CITY
         city_coordinates = City().get_coordinates(DEFAULT_CITY, DEFAULT_COUNTRY_CODE)
+
 
     weather_data = get_weather_data(city_coordinates[0], city_coordinates[1])
     daily_forecasts = calculate_daily_forecasts(weather_data, days)
