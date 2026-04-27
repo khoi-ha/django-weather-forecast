@@ -58,7 +58,7 @@ def approximate_location(ipv4:str)->tuple:
         print(e)
         return DEFAULT_LOCATION
     
-    if not (result.country or result.city):
+    if not (result.country and result.city):
         return DEFAULT_LOCATION
 
     return (result.country, result.city)
