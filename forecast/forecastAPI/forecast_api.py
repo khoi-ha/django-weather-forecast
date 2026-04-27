@@ -18,7 +18,7 @@ from forecast.openWeather.api_client import get_weather_data
 from forecast.openWeather.data_processing import calculate_daily_forecasts
 from forecast.models import Country, City, Weather, InfoType, Background
 
-DEFAULT_COUNTRY = "UK"
+DEFAULT_COUNTRY = "GB"
 DEFAULT_CITY = "London"
 
 def get_weather_icon(weather_type) -> str:
