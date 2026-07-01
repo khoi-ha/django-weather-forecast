@@ -5,6 +5,7 @@ import gzip
 import shutil
 import json
 import django
+import logging
 
 # Add the project directory to the Python path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
@@ -15,6 +16,8 @@ django.setup()
 
 from forecast.models import Country
 from forecast.models import City
+
+logger = logging.getLogger(__name__)
 
 LOCATION_DATA_DIRNAME = os.path.join(os.path.dirname(__file__), "data")
 CITY_LIST_FILENAME = "city.list.min.json"
@@ -46,9 +49,9 @@ def import_country_codes():
     for country in country_codes:
         try:
             Country.objects.get_or_create(code=country["iso2"], name=country["name"])
-            print(f"Imported country: {country['name']}, {country['iso2']}")
+            logger.debug(f"Imported country: {country['name']}, {country['iso2']}")
         except Exception as e:
-            print(f"Error importing country {country['name']}: {e}")
+            logger.debug(f"Error importing country {country['name']}: {e}")
 
 
 def unzip_city_list():
@@ -68,7 +71,7 @@ def fetch_city_list():
         Exception: If the request to fetch the city list fails.
     """
     if os.path.exists(f"{LOCATION_DATA_DIRNAME}/{CITY_LIST_FILENAME}"):
-        print("City list already exists. Skipping download")
+        logger.debug("City list already exists. Skipping download")
         return
     response = requests.get(OPENWEATHER_CITY_LIST_URL)
     if response.status_code == 200:
@@ -97,11 +100,11 @@ def import_city_list():
                     lon=city["coord"]["lon"]
                 ) 
                 if city["state"]:
-                    print(f"Imported city: {city['name']}, {city['state']}, {country.name}")
+                    logger.debug(f"Imported city: {city['name']}, {city['state']}, {country.name}")
                 else:
-                    print(f"Imported city: {city['name']}, {country.name}")
+                    logger.debug(f"Imported city: {city['name']}, {country.name}")
             except Exception as e:
-                print(f"Error importing city {city['name']}: {e}")
+                logger.debug(f"Error importing city {city['name']}: {e}")
         f.close()
 
 

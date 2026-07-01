@@ -1,5 +1,7 @@
 import pandas as pd
+import logging
 
+logger = logging.getLogger(__name__)
 
 def create_forecast_entry(json_entry:dict):
     """Create a forecast entry from a JSON response.
@@ -35,7 +37,7 @@ def create_forecast_entry(json_entry:dict):
             json_entry["wind"]["speed"]
         ]
     except KeyError:
-        print("The given data is invalid")
+        logger.debug("The given data is invalid")
         
     return row_data
 
@@ -50,7 +52,12 @@ def create_forecast_df(weather_data):
         pd.DataFrame: A DataFrame containing the forecast data.
     """
     rows = []
-    forecast_entries = weather_data["list"]
+    
+    try: 
+        forecast_entries = weather_data["list"]
+    except KeyError:
+        logger.debug("Raw data is invalid")
+        return pd.DataFrame()
     
     for entry in forecast_entries:
         row = create_forecast_entry(entry)
@@ -74,6 +81,11 @@ def calculate_daily_forecasts(weather_data, days=3):
     """
     # Create a DataFrame from the weather data
     forecast_df = create_forecast_df(weather_data)
+
+    if forecast_df.empty:
+        logger.debug("DataFrame is empty")
+        return []
+
     grouped = forecast_df.groupby("date")
 
     # Filter out the first date if it has less than 4 entries (indicating it's not a full day)

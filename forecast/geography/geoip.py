@@ -2,6 +2,7 @@ from os import getenv
 from django.http.request import HttpRequest
 from ipware import get_client_ip 
 from iplocate import IPLocateClient
+import logging
 
 IPLOCATE_KEY = getenv("IPLOCATE_API_KEY")
 IPLOCATE_ENDPOINT = "https://iplocate.io/api/lookup/"
@@ -9,6 +10,7 @@ IPLOCATE_ENDPOINT = "https://iplocate.io/api/lookup/"
 # Default location to use in case the GeoIP service fails
 DEFAULT_LOCATION = ("United Kingdom", "London")
 
+logger = logging.getLogger(__name__)
 
 def get_ip(request:HttpRequest)->str:
     """
@@ -24,14 +26,14 @@ def get_ip(request:HttpRequest)->str:
 
     # Attempt to determine IP from request
     if not client_ip:
-        print("Error: Failed to get client IP.")
+        logger.debug("Error: Failed to get client IP.")
         return ""
     else:
         # Check if obtained IP address is publicly routable
         if is_routable:
             return client_ip
         else:
-            print(f"Error: IP address {client_ip} is not routable.")
+            logger.debug(f"Error: IP address {client_ip} is not routable.")
             return ""
 
 
@@ -54,8 +56,8 @@ def approximate_location(ipv4:str)->tuple:
         # Attempt IP lookup
         result = client.lookup(ipv4)
     except Exception as e:
-        print(f"Error: Location lookup for address {ipv4} failed. See below for more details.")
-        print(e)
+        logger.debug(f"Error: Location lookup for address {ipv4} failed. See below for more details.")
+        logger.debug(e)
         return DEFAULT_LOCATION
     
     if not (result.country and result.city):
@@ -78,7 +80,7 @@ if __name__ == "__main__":
     # Test the GeoIP API
     TEST_IP_V4 = getenv("IPV4")
     if TEST_IP_V4:
-        print(approximate_location(TEST_IP_V4))
+        logger.debug(approximate_location(TEST_IP_V4))
     
     # Set up minimal Django app for testing
     from django.conf import settings
@@ -101,4 +103,4 @@ if __name__ == "__main__":
         REMOTE_ADDR="127.0.0.1",
         HTTP_X_FORWARDED_FOR=TEST_REMOTE
     )
-    print(locate_by_request(request))
+    logger.debug(locate_by_request(request))

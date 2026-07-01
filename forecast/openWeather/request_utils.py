@@ -1,7 +1,10 @@
 import requests
+import logging
 
 ARGUMENT_SEPARATOR = "&"
 RESPONSE_SUCCESS = 200
+
+logger = logging.getLogger(__name__)
 
 def send_get_request(endpoint: str, headers: dict, **vars):
     """Send a GET request to a REST API endpoint
@@ -21,19 +24,18 @@ def send_get_request(endpoint: str, headers: dict, **vars):
     
     full_query = ARGUMENT_SEPARATOR.join(args_list)
     target_url = f"{endpoint}?{full_query}"
-    
+
     try:
         response = requests.get(target_url, headers=headers)
     except Exception as e:
-        print()
-        print("Error sending request. More details below:")
-        print(e)
+        logger.debug("Error sending request. More details below:")
+        logger.debug(e)
         return None
-    
+
     if response.status_code != RESPONSE_SUCCESS:
-        print()
-        print(f"Request is sent but unsuccessful")
-        print(f"Status code: {response.status_code}")
+        logger.debug("Request is sent but unsuccessful")
+        logger.debug(f"Status code: {response.status_code}")
+        logger.debug(f"Response message: {response.content}")
         return None
 
     return response
