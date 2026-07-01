@@ -2,6 +2,7 @@ import os
 import sys
 import django
 import datetime
+import logging
 
 # Add the project directory to the Python path
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
@@ -17,6 +18,8 @@ django.setup()
 from forecast.openWeather.api_client import get_weather_data
 from forecast.openWeather.data_processing import calculate_daily_forecasts
 from forecast.models import Country, City, Weather, InfoType, Background
+
+logger = logging.getLogger(__name__)
 
 DEFAULT_COUNTRY = "United Kingdom"
 DEFAULT_COUNTRY_CODE = "GB"
@@ -34,7 +37,7 @@ def get_weather_icon(weather_type) -> str:
     weather_icon = Weather.objects.filter(name__iexact=weather_type).first()
     
     if weather_icon is None:
-        print(f"Could not find icon for weather type: {weather_type}.")
+        logger.debug(f"Could not find icon for weather type: {weather_type}.")
         return ""
     return weather_icon.icon
 
@@ -76,12 +79,12 @@ def generate_forecast_data(days, city_name, country_name) -> dict:
     """
     country_code = Country().get_country_code(country_name)
     if country_code is None:
-        print(f"Could not find country code for the country: {country_name}.")
+        logger.debug(f"Could not find country code for the country: {country_name}.")
         country_name = DEFAULT_COUNTRY
 
     city_coordinates = City().get_coordinates(city_name, country_code)
     if city_coordinates is None:
-        print(f"Could not find coordinates for the city: {city_name}, {country_name}.")
+        logger.debug(f"Could not find coordinates for the city: {city_name}, {country_name}.")
         country_name = DEFAULT_COUNTRY
         city_name = DEFAULT_CITY
         city_coordinates = City().get_coordinates(DEFAULT_CITY, DEFAULT_COUNTRY_CODE)
@@ -129,7 +132,7 @@ if __name__ == "__main__":
     test_days_excess = 10
 
     # Testing background retrieval
-    print(Background().get_random_backgrounds(test_weather_type, 
-                                              test_days_normal))
-    print(Background().get_random_backgrounds(test_weather_type, 
-                                              test_days_excess))
+    logger.debug(Background().get_random_backgrounds(test_weather_type, 
+                                                    test_days_normal))
+    logger.debug(Background().get_random_backgrounds(test_weather_type, 
+                                                    test_days_excess))

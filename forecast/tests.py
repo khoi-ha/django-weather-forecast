@@ -2,12 +2,15 @@ from django.test import TestCase
 from pandas import DataFrame
 import json
 import sys
+import logging
 
 sys.path.append("./forecast")
 from forecast.openWeather.api import get_weather_data, \
             OPENWEATHER_API_KEY
 from forecast.openWeather.data_processing import create_forecast_entry, \
             create_forecast_df, calculate_daily_forecasts
+
+logger = logging.getLogger(__name__)
 
 TEST_LOCATION = (61.5, 23.8)
 
@@ -44,8 +47,8 @@ def load_json_test_pair(name)->tuple:
             input_data = json.loads(f.read())
             f.close()
     except Exception as e:
-        print("Error reading the input file")
-        print(e)
+        logger.debug("Error reading the input file")
+        logger.debug(e)
         return (dict(), dict())
 
     try:
@@ -53,8 +56,8 @@ def load_json_test_pair(name)->tuple:
             output_data = json.loads(f.read())
             f.close()
     except Exception as e:
-        print("Error reading the output file")
-        print(e)
+        logger.debug("Error reading the output file")
+        logger.debug(e)
         return (dict(), dict())
     
     return (input_data, output_data)
