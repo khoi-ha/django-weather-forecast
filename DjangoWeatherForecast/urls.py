@@ -20,5 +20,6 @@ from django.urls import include
 
 urlpatterns = [
     path("", include("forecast.urls")),
+    path("", include("geography.urls")),
     path("admin/", admin.site.urls),
 ]

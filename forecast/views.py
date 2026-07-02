@@ -1,16 +1,16 @@
 from django.shortcuts import render
 from django.http import JsonResponse, HttpRequest
-from forecast.forecastAPI.forecast_api import generate_forecast_data
-from forecast.forecastAPI.input_validation import validate_country, \
+from forecast.api.forecast_api import generate_forecast_data
+from forecast.api.input_validation import validate_country, \
                                 validate_city, validate_days
-from forecast.geography.geoip import locate_by_request
-from forecast.geography.location_api import generate_city_suggestions
+from geography.ipTools.geoip import locate_by_request
 
 DEFAULT_DAYS = "3"
 
 # Limit the number of city suggestions to prevent overwhelming
 # the user and to reduce database load
 MAX_SUGGESTIONS = 20
+
 
 def forecast(request: HttpRequest):
     if request.method != "GET":
@@ -39,17 +39,6 @@ def forecast(request: HttpRequest):
     if forecast_data is None:
         return JsonResponse({"error": "Could not generate forecast data"}, status=500)
     return JsonResponse(forecast_data)
-
-def get_city_suggestions(request: HttpRequest):
-    if request.method != "GET":
-        return JsonResponse({"error": "Only GET requests are allowed"}, status=405)
-
-    keyword = request.GET.get("keyword", "")
-    if not keyword:
-        return JsonResponse({"error": "Query parameter is required"}, status=400)
-
-    suggestions = generate_city_suggestions(keyword, MAX_SUGGESTIONS)
-    return JsonResponse({"suggestions": suggestions})
 
 
 def index(request: HttpRequest):

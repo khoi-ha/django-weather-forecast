@@ -89,9 +89,11 @@ def import_city_list():
     fetch_city_list()
     with open(f"{LOCATION_DATA_DIRNAME}/{CITY_LIST_FILENAME}", "r", encoding="utf-8") as f:
         city_list = json.load(f)
+        
         for city in city_list:
             try:
                 country = Country.objects.get(code=city["country"])
+                
                 City.objects.get_or_create(
                     country=country,
                     state=city["state"],
