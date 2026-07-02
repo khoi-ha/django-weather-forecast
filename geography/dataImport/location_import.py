@@ -15,7 +15,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "DjangoWeatherForecast.settings")
 django.setup()
 
-from forecast.models import Country
+from geography.models import Country
 
 logger = logging.getLogger(__name__)
 
@@ -83,7 +83,7 @@ def fetch_city_list():
     unzip_city_list()
 
 
-CITY_TAB_NAME = "forecast_city"
+CITY_TAB_NAME = "geography_city"
 @transaction.atomic
 def import_city_list():
     """Import city list into the database.

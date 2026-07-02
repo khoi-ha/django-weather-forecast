@@ -17,7 +17,8 @@ django.setup()
 
 from forecast.openWeather.api_client import get_weather_data
 from forecast.openWeather.data_processing import calculate_daily_forecasts
-from forecast.models import Country, City, Weather, InfoType, Background
+from forecast.models import Weather, InfoType, Background
+from geography.models import Country, City
 
 logger = logging.getLogger(__name__)
 

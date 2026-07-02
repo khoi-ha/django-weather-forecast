@@ -11,7 +11,7 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "DjangoWeatherForecast.settings"
 django.setup()
 
 
-from forecast.models import Country, City
+from geography.models import City
 
 def generate_city_suggestions(keyword, max_suggestions=20):
     """Generate city suggestions based on a keyword.

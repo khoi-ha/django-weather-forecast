@@ -83,7 +83,7 @@ This is a Django project for a weather forecasting application. It provides user
 
     ```bash
     python geography/importTools/location_import.py
-    python forecast/importTools/default_imports.py
+    python forecast/openWeather/default_imports.py
     ```
 
 12. For testing purposes, you should turn on debug mode in `settings.py` by changing the line `DEBUG = False` to `DEBUG = True`.
