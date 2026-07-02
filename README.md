@@ -82,7 +82,7 @@ This is a Django project for a weather forecasting application. It provides user
 11. Import locations, and weather types into database:
 
     ```bash
-    python geography/importTools/locations_import.py
+    python geography/importTools/location_import.py
     python forecast/importTools/default_imports.py
     ```
 

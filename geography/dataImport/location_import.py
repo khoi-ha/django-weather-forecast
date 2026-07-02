@@ -6,6 +6,7 @@ import shutil
 import json
 import django
 import logging
+from django.db import connection, transaction
 
 # Add the project directory to the Python path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
@@ -15,7 +16,6 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "DjangoWeatherForecast.settings"
 django.setup()
 
 from forecast.models import Country
-from forecast.models import City
 
 logger = logging.getLogger(__name__)
 
@@ -83,32 +83,54 @@ def fetch_city_list():
     unzip_city_list()
 
 
+CITY_TAB_NAME = "forecast_city"
+@transaction.atomic
 def import_city_list():
     """Import city list into the database.
     """
     fetch_city_list()
+
+    # Load city list
+    city_list = None
     with open(f"{LOCATION_DATA_DIRNAME}/{CITY_LIST_FILENAME}", "r", encoding="utf-8") as f:
         city_list = json.load(f)
-        
-        for city in city_list:
-            try:
-                country = Country.objects.get(code=city["country"])
-                
-                City.objects.get_or_create(
-                    country=country,
-                    state=city["state"],
-                    name=city["name"],
-                    lat=city["coord"]["lat"],
-                    lon=city["coord"]["lon"]
-                ) 
-                if city["state"]:
-                    logger.debug(f"Imported city: {city['name']}, {city['state']}, {country.name}")
-                else:
-                    logger.debug(f"Imported city: {city['name']}, {country.name}")
-            except Exception as e:
-                logger.debug(f"Error importing city {city['name']}: {e}")
         f.close()
+    
+    # Build country map    
+    country_set = set([
+        country.code for country in Country.objects.only("code")
+    ])
 
+    # Insert into the temp table
+    with connection.cursor() as cursor:    
+        cursor.execute(f"""CREATE TEMP TABLE tmp_city 
+                            (LIKE {CITY_TAB_NAME} INCLUDING DEFAULTS)""")
+        with cursor.copy(
+            "COPY tmp_city (id, name, lat, lon, country_id, state) FROM STDIN"
+        ) as copy:
+            for city in city_list:
+                country_code = city["country"]
+                if country_code not in country_set:
+                    continue
+                copy.write_row((int(city["id"]), city["name"], city["coord"]["lat"],
+                            city["coord"]["lon"], country_code,
+                            city["state"]))
+                if city["state"]:
+                    logger.debug(f"Imported city: {city['name']}, {city['state']}, {country_code}")
+                else:
+                    logger.debug(f"Imported city: {city['name']}, {country_code}")
+    
+    # Inserting from temp table to real table            
+    with connection.cursor() as cursor:
+        cursor.execute(
+            f""" 
+            INSERT INTO {CITY_TAB_NAME} (id, name, lat, lon, country_id, state)
+                SELECT id, name, lat, lon, country_id, state
+                FROM tmp_city
+                ON CONFLICT(id)
+                DO NOTHING
+            """
+        )
 
 if __name__ == "__main__":
     if not os.path.exists(LOCATION_DATA_DIRNAME):
